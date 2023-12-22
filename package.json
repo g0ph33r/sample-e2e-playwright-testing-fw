@@ -10,7 +10,7 @@
     "test:headed": "npm run test -- --headed",
     "test:ui": "npm run test -- --ui",
     "show-report": "npx playwright show-report",
-    "format:check": "format:check": "npx prettier . --check \"!**.ts\""
+    "format:check": "npx prettier . --check \"!**.ts\""
   },
   "keywords": [],
   "author": "",
