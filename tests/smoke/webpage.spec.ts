@@ -1,12 +1,13 @@
-import { ArticlesPage } from '../src/pages/articles.page';
-import { CommentsPage } from '../src/pages/comments.page';
-import { HomePage } from '../src/pages/home.page';
+import { ArticlesPage } from '../../src/pages/articles.page';
+import { CommentsPage } from '../../src/pages/comments.page';
+import { HomePage } from '../../src/pages/home.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify service main pages', () => {
   test('Verify home page title @GAD-R01-01', async ({ page }) => {
     //Arrange
     const homePage = new HomePage(page);
+
     //Act
     await homePage.goto();
 
@@ -17,9 +18,10 @@ test.describe('Verify service main pages', () => {
   });
 
   test('Verify articles page title @GAD-R01-02', async ({ page }) => {
-    //Act
-
+    //Arrange
     const articles = new ArticlesPage(page);
+
+    //Act
     await articles.goto();
 
     //Assert
@@ -27,9 +29,11 @@ test.describe('Verify service main pages', () => {
   });
 
   test('Verify comments page title @GAD-R01-02', async ({ page }) => {
-    //Act
+    //Arrange
 
     const comments = new CommentsPage(page);
+
+    //Act
     await comments.goto();
 
     //Assert
