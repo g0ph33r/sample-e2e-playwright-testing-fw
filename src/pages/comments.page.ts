@@ -9,4 +9,3 @@ export class CommentsPage extends BasePage {
     super(page);
   }
 }
-///test
