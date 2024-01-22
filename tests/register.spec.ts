@@ -1,6 +1,7 @@
 import { LoginPage } from '../src/pages/login.page';
 import { RegisterPage } from '../src/pages/register.page';
 import { WelcomePage } from '../src/pages/welcome.page';
+import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify register', () => {
@@ -8,10 +9,13 @@ test.describe('Verify register', () => {
     page,
   }) => {
     //Arrange
-    const userFirstName = 'TestUser';
-    const userLastName = 'Paul';
-    const userEmail = `jj${new Date().getTime()}@test.com`;
-    const userPassword = 'qwerty123';
+    const userFirstName = faker.person.firstName();
+    const userLastName = faker.person.lastName();
+    const userEmail = faker.internet.email({
+      firstName: userFirstName,
+      lastName: userLastName,
+    });
+    const userPassword = faker.internet.password();
 
     const registerPage = new RegisterPage(page);
 
@@ -36,6 +40,6 @@ test.describe('Verify register', () => {
     await loginPage.login(userEmail, userPassword);
     const welcomePage = new WelcomePage(page);
     const titleWelcome = await welcomePage.title();
-    expect(titleWelcome).toContain('🦎 GAD | Login');
+    expect(titleWelcome).toContain('🦎 GAD | Welcome');
   });
 });
