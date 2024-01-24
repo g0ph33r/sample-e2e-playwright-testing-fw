@@ -36,10 +36,10 @@ test.describe('Verify register', () => {
     const title = await loginPage.title();
     expect(title).toContain('🦎 GAD | Login');
 
-    await loginPage.login(
-      registerUserData.userEmail,
-      registerUserData.userPassword,
-    );
+    await loginPage.login({
+      userEmail: registerUserData.userEmail,
+      userPassword: registerUserData.userPassword,
+    });
     const welcomePage = new WelcomePage(page);
     const titleWelcome = await welcomePage.title();
     expect(titleWelcome).toContain('🦎 GAD | Welcome');
