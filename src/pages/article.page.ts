@@ -1,6 +1,6 @@
 import { MainMenuComponent } from '../components/main-menu.component';
 import { BasePage } from './base.page';
-import { Page } from 'playwright/test';
+import { Page } from '@playwright/test';
 
 export class ArticlePage extends BasePage {
   url = '/article.html';
@@ -8,8 +8,16 @@ export class ArticlePage extends BasePage {
   articleTitle = this.page.getByTestId('article-title');
   articleBody = this.page.getByTestId('article-body');
   user = this.page.getByTestId('user-name');
+  deleteButton = this.page.getByTestId('delete');
 
   constructor(page: Page) {
     super(page);
+  }
+
+  async deleteArticle(): Promise<void> {
+    this.page.on('dialog', async (dialog) => {
+      await dialog.accept();
+    });
+    this.deleteButton.click();
   }
 }
