@@ -27,7 +27,7 @@ test.describe('Create, verify and delete article', () => {
   });
 
   test('Create new article @GAD_R04_01', async () => {
-    // Arrange testt
+    // Arrange test
     articleData = randomNewArticle();
 
     //Act
