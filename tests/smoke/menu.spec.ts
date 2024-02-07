@@ -4,7 +4,7 @@ import { HomePage } from '../../src/pages/home.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify main menu buttons', () => {
-  test('Comments button navigates to comments page @GAD_R01_03', async ({
+  test('Comments button navigates to comments page @GAD-R01-03', async ({
     page,
   }) => {
     // Arrange
@@ -20,7 +20,7 @@ test.describe('Verify main menu buttons', () => {
     expect(title).toContain('Comments');
   });
 
-  test('Articles button navigates to comments articles page @GAD_R01_03', async ({
+  test('Articles button navigates to comments articles page @GAD-R01-03', async ({
     page,
   }) => {
     // Arrange
@@ -36,7 +36,7 @@ test.describe('Verify main menu buttons', () => {
     expect(title).toContain('Articles');
   });
 
-  test('home page button navigates to main page @GAD_R01_03', async ({
+  test('home page button navigates to main page @GAD-R01-03', async ({
     page,
   }) => {
     // Arrange

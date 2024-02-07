@@ -5,7 +5,7 @@ import { testUser1 } from '../src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify login', () => {
-  test('Login with correct credentials @GAD_R02_01', async ({ page }) => {
+  test('Login with correct credentials @GAD-R02-01', async ({ page }) => {
     // Arrange
 
     const loginPage = new LoginPage(page);
@@ -22,7 +22,7 @@ test.describe('Verify login', () => {
   });
 });
 
-test('Reject login with incorrect password @GAD_R02_02', async ({ page }) => {
+test('Reject login with incorrect password @GAD-R02-02', async ({ page }) => {
   // Arrange
 
   const loginUserData: LoginUser = {
