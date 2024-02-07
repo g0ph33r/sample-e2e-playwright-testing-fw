@@ -8,13 +8,13 @@ test.describe('Verify main menu buttons', () => {
     page,
   }) => {
     // Arrange
+    const commentsPage = new CommentsPage(page);
     const articlesPage = new ArticlesPage(page);
     const expectedCommentsTitle = 'Comments';
 
     // Act
     await articlesPage.goto();
     await articlesPage.mainMenu.commentsButton.click();
-    const commentsPage = new CommentsPage(page);
     const title = await commentsPage.getTitle();
     // Assert
 
@@ -42,13 +42,13 @@ test.describe('Verify main menu buttons', () => {
     page,
   }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const articlesPage = new ArticlesPage(page);
     const expectedHomePageTitle = 'GAD';
 
     // Act
     await articlesPage.goto();
     await articlesPage.mainMenu.commentsButton.click();
-    const homePage = new HomePage(page);
     const title = await homePage.getTitle();
 
     // Assert
