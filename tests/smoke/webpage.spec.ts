@@ -13,7 +13,7 @@ test.describe('Verify service main pages', () => {
 
     //Assert
 
-    const title = await homePage.title();
+    const title = await homePage.getTitle();
     expect(title).toContain('GAD');
   });
 

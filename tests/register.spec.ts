@@ -23,8 +23,8 @@ test.describe('Verify register', () => {
     const loginPage = new LoginPage(page);
     const welcomePage = new WelcomePage(page);
 
-    const title = await loginPage.title();
-    const titleWelcome = await welcomePage.title();
+    const title = await loginPage.getTitle();
+    const titleWelcome = await welcomePage.getTitle();
 
     //Act
     await registerPage.register(registerUserData);
