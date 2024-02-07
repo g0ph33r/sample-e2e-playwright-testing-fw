@@ -18,7 +18,7 @@ test.describe('Verify articles', () => {
     await loginPage.login(testUser1);
     await articles.goto();
     await articles.addArticleButtonLogged.click();
-    await expect.soft(addArticleView.header).toBeVisible();
+    await expect.soft(addArticleView.addNewHeader).toBeVisible();
   });
 
   test('Reject article with empty title - negative scenario @GAD-R04-01', async () => {
