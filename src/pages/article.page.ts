@@ -9,6 +9,8 @@ export class ArticlePage extends BasePage {
   articleBody = this.page.getByTestId('article-body');
   user = this.page.getByTestId('user-name');
   deleteButton = this.page.getByTestId('delete');
+  addCommentButton = this.page.locator('#add-new-comment');
+  alertPopUp = this.page.getByTestId('alert-popup');
 
   constructor(page: Page) {
     super(page);
