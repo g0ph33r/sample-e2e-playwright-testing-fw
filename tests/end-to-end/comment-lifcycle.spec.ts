@@ -1,6 +1,7 @@
 import { prepareRandomNewArticle } from '../../src/factories/article.factory';
 import { prepareRandomComment } from '../../src/factories/comment.factory';
 import { AddArticleModel } from '../../src/models/article.model';
+import { AddCommentModel } from '../../src/models/comment.model';
 import { ArticlePage } from '../../src/pages/article.page';
 import { ArticlesPage } from '../../src/pages/articles.page';
 import { CommentPage } from '../../src/pages/comment.page';
@@ -38,48 +39,63 @@ test.describe('Create, verify and delete comment', () => {
     await addArticleView.createArticle(articleData);
   });
 
-  test('Create new comment @GAD-R05-01', async () => {
-    // Create new comment
-    // Arrange
-    const expectedCommentCreatedPopup = 'Comment was created';
-    const expectedAddCommentHeader = 'Add New Comment';
-    const expectedCommentUpdatedPopup = 'Comment was updated';
-
+  test('Operate on comments @GAD-R05-01', async () => {
     const newCommentData = prepareRandomComment();
-    // Act
-    await articlePage.addCommentButton.click();
-    await expect(addCommentView.addNewHeader).toHaveText(
-      expectedAddCommentHeader,
-    );
 
-    await addCommentView.createComment(newCommentData);
+    await test.step('create new comment', async () => {
+      // Arrange
+      const expectedAddCommentHeader = 'Add New Comment';
+      const expectedCommentCreatedPopup = 'Comment was created';
 
-    // Assert
-    await expect(articlePage.alertPopUp).toHaveText(
-      expectedCommentCreatedPopup,
-    );
+      //Act
+      await articlePage.addCommentButton.click();
+      await expect
+        .soft(addCommentView.addNewHeader)
+        .toHaveText(expectedAddCommentHeader);
 
-    // Verify comment
-    const articleComment = articlePage.getArticleComment(newCommentData.body);
-    await expect(articleComment.body).toHaveText(newCommentData.body);
-    await articleComment.link.click();
+      await addCommentView.createComment(newCommentData);
 
-    // Assert
-    await expect(commentPage.commentBody).toHaveText(newCommentData.body);
+      // Assert
+      await expect(articlePage.alertPopUp).toHaveText(
+        expectedCommentCreatedPopup,
+      );
+    });
 
-    // Edit comment
-    const editCommentData = prepareRandomComment();
+    await test.step('Verify comment', async () => {
+      const articleComment = articlePage.getArticleComment(newCommentData.body);
+      await expect(articleComment.body).toHaveText(newCommentData.body);
+      await articleComment.link.click();
 
-    await commentPage.editButton.click();
-    await editCommentView.updateComment(editCommentData);
-    await expect(commentPage.commentBody).toHaveText(editCommentData.body);
-    await expect(commentPage.alertPopup).toHaveText(
-      expectedCommentUpdatedPopup,
-    );
-    await commentPage.returnLink.click();
-    const updatedArticleComment = articlePage.getArticleComment(
-      editCommentData.body,
-    );
-    await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
+      // Assert
+      await expect(commentPage.commentBody).toHaveText(newCommentData.body);
+    });
+
+    let editCommentData: AddCommentModel;
+    await test.step('Update comment', async () => {
+      // Arrange
+      const expectedCommentUpdatedPopup = 'Comment was updated';
+      editCommentData = prepareRandomComment();
+
+      //Act
+      await commentPage.editButton.click();
+      await editCommentView.updateComment(editCommentData);
+
+      // Assert
+      await expect(commentPage.commentBody).toHaveText(editCommentData.body);
+      await expect
+        .soft(commentPage.alertPopup)
+        .toHaveText(expectedCommentUpdatedPopup);
+    });
+
+    await test.step('Verify updated comment in article', async () => {
+      //Act
+      await commentPage.returnLink.click();
+      const updatedArticleComment = articlePage.getArticleComment(
+        editCommentData.body,
+      );
+
+      // Assert
+      await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
+    });
   });
 });
