@@ -38,7 +38,7 @@ export default defineConfig({
       name: 'chromium-logged',
       grep: /@logged/,
       dependencies: ['setup'],
-      use: { ...devices['Desktop Chrome'], storageState: STORAGE_STATE },
+      use: { ...devices['Desktop Firefox'], storageState: STORAGE_STATE },
     },
   ],
 });
