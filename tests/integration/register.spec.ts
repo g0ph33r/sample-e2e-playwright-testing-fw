@@ -2,7 +2,6 @@ import { prepareRandomUser } from '@_src/factories/user.factory';
 import { RegisterUserModel } from '@_src/models/user.model';
 import { LoginPage } from '@_src/pages/login.page';
 import { RegisterPage } from '@_src/pages/register.page';
-import { WelcomePage } from '@_src/pages/welcome.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify register', () => {
@@ -21,26 +20,26 @@ test.describe('Verify register', () => {
     const expectedAlertPopupText = 'User created';
 
     const loginPage = new LoginPage(page);
-    const welcomePage = new WelcomePage(page);
 
     const title = await loginPage.getTitle();
-    const titleWelcome = await welcomePage.getTitle();
 
     //Act
     await registerPage.register(registerUserData);
 
     //Assert
     const expectedRegisterTitle = 'GAD | Register';
-    const expectedTitleWelcome = '🦎 GAD | Register';
+    const expectedTitleWelcome = '🦎 GAD | Welcome';
 
     await expect(registerPage.alertPopup).toHaveText(expectedAlertPopupText);
     await loginPage.waitForUrl();
     expect(title).toContain(expectedRegisterTitle);
 
-    await loginPage.login({
+    const welcomePage = await loginPage.login({
       userEmail: registerUserData.userEmail,
       userPassword: registerUserData.userPassword,
     });
+
+    const titleWelcome = await welcomePage.getTitle();
     expect(titleWelcome).toContain(expectedTitleWelcome);
   });
 
