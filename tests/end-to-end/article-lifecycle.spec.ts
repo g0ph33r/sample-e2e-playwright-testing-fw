@@ -2,19 +2,16 @@ import { prepareRandomNewArticle } from '@_src/factories/article.factory';
 import { AddArticleModel } from '@_src/models/article.model';
 import { ArticlePage } from '@_src/pages/article.page';
 import { ArticlesPage } from '@_src/pages/articles.page';
-import { AddArticleView } from '@_src/views/add-article.view';
 import { expect, test } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
 test.describe('Create, verify and delete article', () => {
   let articlesPage: ArticlesPage;
   let articlePage: ArticlePage;
-  let addArticleView: AddArticleView;
   let articleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
     articlesPage = new ArticlesPage(page);
-    addArticleView = new AddArticleView(page);
     articlePage = new ArticlePage(page);
 
     await articlesPage.goto();
@@ -25,7 +22,7 @@ test.describe('Create, verify and delete article', () => {
     articleData = prepareRandomNewArticle();
 
     //Act
-    await articlesPage.addArticleButtonLogged.click();
+    const addArticleView = await articlesPage.clickAddArticleButtonLogged();
     await expect.soft(addArticleView.addNewHeader).toBeVisible();
     await addArticleView.createArticle(articleData);
 
@@ -38,7 +35,7 @@ test.describe('Create, verify and delete article', () => {
 
   test('User can access single article @GAD-R04-03 @logged', async () => {
     // Act
-    await articlesPage.gotoArticle(articleData.title);
+    const articlePage = await articlesPage.gotoArticle(articleData.title);
 
     // Assert
     await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
@@ -61,7 +58,7 @@ test.describe('Create, verify and delete article', () => {
     const title = await articlesPage.getTitle();
     expect(title).toContain(expectedArticlesTitle);
 
-    await articlesPage.searchArticle(articleData.title);
+    articlesPage = await articlesPage.searchArticle(articleData.title);
     await expect(articlesPage.noResultText).toHaveText(expectedNoResultText);
   });
 });

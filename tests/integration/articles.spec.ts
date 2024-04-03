@@ -5,15 +5,14 @@ import { AddArticleView } from '@_src/views/add-article.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify articles', () => {
-  let articles: ArticlesPage;
+  let articlesPage: ArticlesPage;
   let addArticleView: AddArticleView;
 
   test.beforeEach(async ({ page }) => {
-    articles = new ArticlesPage(page);
-    addArticleView = new AddArticleView(page);
+    articlesPage = new ArticlesPage(page);
 
-    await articles.goto();
-    await articles.addArticleButtonLogged.click();
+    await articlesPage.goto();
+    addArticleView = await articlesPage.clickAddArticleButtonLogged();
     await expect.soft(addArticleView.addNewHeader).toBeVisible();
   });
 
