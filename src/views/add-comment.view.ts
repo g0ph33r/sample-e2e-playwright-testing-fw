@@ -13,6 +13,6 @@ export class AddCommentView {
     await this.bodyInput.fill(commentData.body);
     await this.saveButton.click();
 
-    return new ArticlePage(this.page)
+    return new ArticlePage(this.page);
   }
 }
