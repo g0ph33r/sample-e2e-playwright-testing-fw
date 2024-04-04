@@ -36,7 +36,7 @@ test.describe('Create, verify and delete comment', () => {
         .soft(addCommentView.addNewHeader)
         .toHaveText(expectedAddCommentHeader);
 
-      await addCommentView.createComment(newCommentData);
+      articlePage = await addCommentView.createComment(newCommentData);
 
       // Assert
       await expect(articlePage.alertPopUp).toHaveText(
@@ -44,7 +44,7 @@ test.describe('Create, verify and delete comment', () => {
       );
     });
 
-    const commentPage = await test.step('Verify comment', async () => {
+    let commentPage = await test.step('Verify comment', async () => {
       const articleComment = articlePage.getArticleComment(newCommentData.body);
       await expect(articleComment.body).toHaveText(newCommentData.body);
       const commentPage = await articlePage.clickCommentLink(
@@ -64,7 +64,7 @@ test.describe('Create, verify and delete comment', () => {
 
       //Act
       const editCommentView = await commentPage.clickEditButton();
-      await editCommentView.updateComment(editCommentData);
+      commentPage = await editCommentView.updateComment(editCommentData);
 
       // Assert
       await expect(commentPage.commentBody).toHaveText(editCommentData.body);
@@ -95,7 +95,7 @@ test.describe('Create, verify and delete comment', () => {
       //Act
       const addCommentView = await articlePage.clickAddCommentButton();
 
-      await addCommentView.createComment(newCommentData);
+      articlePage = await addCommentView.createComment(newCommentData);
 
       // Assert
       await expect(articlePage.alertPopUp).toHaveText(
@@ -108,7 +108,7 @@ test.describe('Create, verify and delete comment', () => {
       const secondCommentBody = await test.step('Create comment', async () => {
         const secondCommentData = prepareRandomComment();
         const addCommentView = await articlePage.clickAddCommentButton();
-        await addCommentView.createComment(secondCommentData);
+        articlePage = await addCommentView.createComment(secondCommentData);
         return secondCommentData.body;
       });
 
