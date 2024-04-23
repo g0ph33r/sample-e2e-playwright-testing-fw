@@ -1,5 +1,5 @@
 import { ArticlesPage } from '@_src/pages/articles.page';
-import { CommentPage } from '@_src/pages/comment.page';
+import { CommentsPage } from '@_src/pages/comments.page';
 import { HomePage } from '@_src/pages/home.page';
 import { Page } from '@playwright/test';
 
@@ -10,9 +10,9 @@ export class MainMenuComponent {
 
   constructor(private page: Page) {}
 
-  async clickCommentsButton(): Promise<CommentPage> {
+  async clickCommentsButton(): Promise<CommentsPage> {
     await this.commentsButton.click();
-    return new CommentPage(this.page);
+    return new CommentsPage(this.page);
   }
 
   async clickArticlesButton(): Promise<ArticlesPage> {

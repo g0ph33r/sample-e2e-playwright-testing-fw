@@ -1,14 +1,15 @@
 import { RegisterUserModel } from '@_src/models/user.model';
 import { BasePage } from '@_src/pages/base.page';
 import { LoginPage } from '@_src/pages/login.page';
-import { Page } from 'playwright/test';
+import { Page } from '@playwright/test';
 
 export class RegisterPage extends BasePage {
   url = '/register.html';
+
   userFirstNameInput = this.page.getByTestId('firstname-input');
   userLastNameInput = this.page.getByTestId('lastname-input');
-  userPasswordInput = this.page.getByTestId('password-input');
   userEmailInput = this.page.getByTestId('email-input');
+  userPasswordInput = this.page.getByTestId('password-input');
   registerButton = this.page.getByTestId('register-button');
 
   alertPopup = this.page.getByTestId('alert-popup');

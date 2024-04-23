@@ -1,37 +1,29 @@
-import { prepareRandomNewArticle } from '@_src/factories/article.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
 import { AddArticleModel } from '@_src/models/article.model';
-import { ArticlesPage } from '@_src/pages/articles.page';
-import { expect, test } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
 test.describe('Create, verify and delete article', () => {
-  let articlesPage: ArticlesPage;
-
   let articleData: AddArticleModel;
 
-  test.beforeEach(async ({ page }) => {
-    articlesPage = new ArticlesPage(page);
-
-    await articlesPage.goto();
-  });
-
-  test('Create new article @GAD-R04-01 @logged', async () => {
+  test('create new article @GAD-R04-01 @logged', async ({
+    createRandomArticle,
+  }) => {
     // Arrange
-    articleData = prepareRandomNewArticle();
+    articleData = createRandomArticle.articleData;
 
-    //Act
-    const addArticleView = await articlesPage.clickAddArticleButtonLogged();
-    await expect.soft(addArticleView.addNewHeader).toBeVisible();
-    const articlePage = await addArticleView.createArticle(articleData);
+    // Act
+    const articlePage = createRandomArticle.articlePage;
 
-    //Assert
+    // Assert
     await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
     await expect
       .soft(articlePage.articleBody)
       .toHaveText(articleData.body, { useInnerText: true });
   });
 
-  test('User can access single article @GAD-R04-03 @logged', async () => {
+  test('user can access single article @GAD-R04-03 @logged', async ({
+    articlesPage,
+  }) => {
     // Act
     const articlePage = await articlesPage.gotoArticle(articleData.title);
 
@@ -42,17 +34,19 @@ test.describe('Create, verify and delete article', () => {
       .toHaveText(articleData.body, { useInnerText: true });
   });
 
-  test('User can delete his own article @GAD-R04-04 @logged', async () => {
+  test('user can delete his own article @GAD-R04-04 @logged', async ({
+    articlesPage,
+  }) => {
     // Arrange
-    const articlePage = await articlesPage.gotoArticle(articleData.title);
-    const expectedArticlesTitle = '🦎 GAD | Article';
+    const expectedArticlesTitle = 'Articles';
     const expectedNoResultText = 'No data';
+    const articlePage = await articlesPage.gotoArticle(articleData.title);
 
     // Act
     articlesPage = await articlePage.deleteArticle();
 
     // Assert
-    await articlesPage.waitForUrl();
+    await articlesPage.waitForPageToLoadUrl();
     const title = await articlesPage.getTitle();
     expect(title).toContain(expectedArticlesTitle);
 

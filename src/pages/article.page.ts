@@ -9,25 +9,30 @@ interface ArticleComment {
   body: Locator;
   link: Locator;
 }
+
 export class ArticlePage extends BasePage {
   url = '/article.html';
   mainMenu = new MainMenuComponent(this.page);
   articleTitle = this.page.getByTestId('article-title');
   articleBody = this.page.getByTestId('article-body');
-  user = this.page.getByTestId('user-name');
-  deleteButton = this.page.getByTestId('delete');
+  deleteIcon = this.page.getByTestId('delete');
   addCommentButton = this.page.locator('#add-new-comment');
-  alertPopUp = this.page.getByTestId('alert-popup');
+  alertPopup = this.page.getByTestId('alert-popup');
 
   constructor(page: Page) {
     super(page);
+  }
+
+  async clickAddCommentButton(): Promise<AddCommentView> {
+    await this.addCommentButton.click();
+    return new AddCommentView(this.page);
   }
 
   async deleteArticle(): Promise<ArticlesPage> {
     this.page.on('dialog', async (dialog) => {
       await dialog.accept();
     });
-    this.deleteButton.click();
+    this.deleteIcon.click();
 
     return new ArticlesPage(this.page);
   }
@@ -48,10 +53,5 @@ export class ArticlePage extends BasePage {
   ): Promise<CommentPage> {
     await commentContainer.link.click();
     return new CommentPage(this.page);
-  }
-
-  async clickAddCommentButton(): Promise<AddCommentView> {
-    await this.addCommentButton.click();
-    return new AddCommentView(this.page);
   }
 }

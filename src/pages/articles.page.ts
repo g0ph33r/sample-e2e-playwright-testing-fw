@@ -2,7 +2,7 @@ import { MainMenuComponent } from '@_src/components/main-menu.component';
 import { ArticlePage } from '@_src/pages/article.page';
 import { BasePage } from '@_src/pages/base.page';
 import { AddArticleView } from '@_src/views/add-article.view';
-import { Page } from 'playwright/test';
+import { Page } from '@playwright/test';
 
 export class ArticlesPage extends BasePage {
   url = '/articles.html';
@@ -29,7 +29,6 @@ export class ArticlesPage extends BasePage {
 
   async clickAddArticleButtonLogged(): Promise<AddArticleView> {
     await this.addArticleButtonLogged.click();
-
     return new AddArticleView(this.page);
   }
 }

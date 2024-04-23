@@ -1,9 +1,9 @@
 import { AddCommentModel } from '@_src/models/comment.model';
 import { CommentPage } from '@_src/pages/comment.page';
-import { Page } from 'playwright/test';
+import { Page } from '@playwright/test';
 
 export class EditCommentView {
-  bodyInput = this.page.getByTestId('body-input');
+  bodyInput = this.page.locator('#body');
   updateButton = this.page.getByTestId('update-button');
 
   constructor(private page: Page) {}

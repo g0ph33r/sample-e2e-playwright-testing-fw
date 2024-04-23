@@ -1,43 +1,40 @@
+import { expect, test } from '@_src/fixtures/merge.fixture';
 import { LoginUserModel } from '@_src/models/user.model';
-import { LoginPage } from '@_src/pages/login.page';
 import { testUser1 } from '@_src/test-data/user.data';
-import { expect, test } from '@playwright/test';
 
 test.describe('Verify login', () => {
-  test('Login with correct credentials @GAD-R02-01', async ({ page }) => {
+  test('login with correct credentials @GAD-R02-01', async ({ loginPage }) => {
     // Arrange
-
-    const loginPage = new LoginPage(page);
-    const expectedWelcomeTitle = '🦎 GAD | Welcome';
+    const expectedWelcomeTitle = 'Welcome';
 
     // Act
-    await loginPage.goto();
     const welcomePage = await loginPage.login(testUser1);
 
     const title = await welcomePage.getTitle();
 
-    //Assert
+    // Assert
     expect(title).toContain(expectedWelcomeTitle);
   });
-});
 
-test('Reject login with incorrect password @GAD-R02-02', async ({ page }) => {
-  // Arrange
+  test('reject login with incorrect password @GAD-R02-01', async ({
+    loginPage,
+  }) => {
+    // Arrange
+    const expectedLoginTitle = 'Login';
 
-  const loginPage = new LoginPage(page);
-  const loginUserData: LoginUserModel = {
-    userEmail: testUser1.userEmail,
-    userPassword: 'incorrectPass',
-  };
-  const expectedLoginTitle = '🦎 GAD | Login';
-  const expectedLoginError = 'Invalid username or password';
+    const loginUserData: LoginUserModel = {
+      userEmail: testUser1.userEmail,
+      userPassword: 'incorrectPassword',
+    };
 
-  // Act
-  await loginPage.goto();
-  await loginPage.login(loginUserData);
+    // Act
+    await loginPage.login(loginUserData);
 
-  //Assert
-  await expect.soft(loginPage.loginError).toHaveText(expectedLoginError);
-  const title = await loginPage.getTitle();
-  expect(title).toContain(expectedLoginTitle);
+    // Assert
+    await expect
+      .soft(loginPage.loginError)
+      .toHaveText('Invalid username or password');
+    const title = await loginPage.getTitle();
+    expect.soft(title).toContain(expectedLoginTitle);
+  });
 });

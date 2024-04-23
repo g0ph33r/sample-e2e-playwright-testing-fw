@@ -1,5 +1,5 @@
 import { RegisterUserModel } from '@_src/models/user.model';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomUser(): RegisterUserModel {
   const registerUserData: RegisterUserModel = {

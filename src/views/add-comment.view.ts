@@ -1,6 +1,6 @@
 import { AddCommentModel } from '@_src/models/comment.model';
 import { ArticlePage } from '@_src/pages/article.page';
-import { Page } from 'playwright/test';
+import { Page } from '@playwright/test';
 
 export class AddCommentView {
   addNewHeader = this.page.getByRole('heading', { name: 'Add New Comment' });

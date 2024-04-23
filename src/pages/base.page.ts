@@ -1,4 +1,4 @@
-import { Page } from 'playwright/test';
+import { Page } from '@playwright/test';
 
 export class BasePage {
   url = '';
@@ -13,7 +13,7 @@ export class BasePage {
     return await this.page.title();
   }
 
-  async waitForUrl(): Promise<void> {
+  async waitForPageToLoadUrl(): Promise<void> {
     await this.page.waitForURL(this.url);
   }
 }
