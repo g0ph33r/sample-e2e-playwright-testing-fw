@@ -69,6 +69,7 @@ test.describe('Create, verify and delete comment', () => {
     });
 
     await test.step('Verify updated comment in article', async () => {
+      // eslint-disable-next-line playwright/no-nested-step
       //Act
       const articlePage = await commentPage.clickReturnLink();
       const updatedArticleComment = articlePage.getArticleComment(
@@ -82,6 +83,7 @@ test.describe('Create, verify and delete comment', () => {
 
   test('User can add more than one comment to article @GAD-R05-03 @logged', async () => {
     await test.step('create first comment', async () => {
+      // eslint-disable-next-line playwright/no-nested-step
       // Arrange
 
       const expectedCommentCreatedPopup = 'Comment was created';
