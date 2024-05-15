@@ -9,15 +9,14 @@ interface ArticleComment {
   body: Locator;
   link: Locator;
 }
-
 export class ArticlePage extends BasePage {
   url = '/article.html';
   mainMenu = new MainMenuComponent(this.page);
   articleTitle = this.page.getByTestId('article-title');
   articleBody = this.page.getByTestId('article-body');
+  alertPopUp = this.page.getByTestId('alert-popup');
   deleteIcon = this.page.getByTestId('delete');
-  addCommentButton = this.page.locator('#add-new-comment');
-  alertPopup = this.page.getByTestId('alert-popup');
+  addCommentButton = this.page.locator('#add-new');
 
   constructor(page: Page) {
     super(page);
@@ -32,6 +31,7 @@ export class ArticlePage extends BasePage {
     this.page.on('dialog', async (dialog) => {
       await dialog.accept();
     });
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.deleteIcon.click();
 
     return new ArticlesPage(this.page);

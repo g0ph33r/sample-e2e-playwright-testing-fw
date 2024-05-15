@@ -21,7 +21,7 @@ test.describe('Verify register', () => {
     const loginPage = await registerPage.register(registerUserData);
 
     // Assert
-    await expect(registerPage.alertPopup).toHaveText(expectedAlertPopupText);
+    await expect(registerPage.alertPopUp).toHaveText(expectedAlertPopupText);
 
     await loginPage.waitForPageToLoadUrl();
     const titleLogin = await loginPage.getTitle();

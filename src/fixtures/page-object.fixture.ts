@@ -8,13 +8,13 @@ import { AddArticleView } from '@_src/views/add-article.view';
 import { test as baseTest } from '@playwright/test';
 
 interface Pages {
-  addArticleView: AddArticleView;
-  articlePage: ArticlePage;
   articlesPage: ArticlesPage;
   commentsPage: CommentsPage;
   homePage: HomePage;
   loginPage: LoginPage;
   registerPage: RegisterPage;
+  addArticleView: AddArticleView;
+  articlePage: ArticlePage;
 }
 
 export const pageObjectTest = baseTest.extend<Pages>({
@@ -24,6 +24,7 @@ export const pageObjectTest = baseTest.extend<Pages>({
   },
   articlePage: async ({ page }, use) => {
     const articlePage = new ArticlePage(page);
+    await articlePage.goto();
     await use(articlePage);
   },
   articlesPage: async ({ page }, use) => {

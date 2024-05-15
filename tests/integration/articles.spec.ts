@@ -2,11 +2,12 @@ import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { expect, test } from '@_src/fixtures/merge.fixture';
 
 test.describe('Verify articles', () => {
-  test('reject creating article without title @GAD-R04-01 @logged', async ({
+  test('reject creating article without title @GAD-R04-01 @GAD-R07-03 @logged', async ({
     addArticleView,
   }) => {
     // Arrange
     const expectedErrorMessage = 'Article was not created';
+
     const articleData = prepareRandomArticle();
     articleData.title = '';
 
@@ -14,14 +15,15 @@ test.describe('Verify articles', () => {
     await addArticleView.createArticle(articleData);
 
     // Assert
-    await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage);
+    await expect(addArticleView.alertPopUp).toHaveText(expectedErrorMessage);
   });
 
-  test('reject creating article without body @GAD-R04-01 @logged', async ({
+  test('reject creating article without body @GAD-R04-01 @GAD-R07-03 @logged', async ({
     addArticleView,
   }) => {
     // Arrange
     const expectedErrorMessage = 'Article was not created';
+
     const articleData = prepareRandomArticle();
     articleData.body = '';
 
@@ -29,25 +31,26 @@ test.describe('Verify articles', () => {
     await addArticleView.createArticle(articleData);
 
     // Assert
-    await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage);
+    await expect(addArticleView.alertPopUp).toHaveText(expectedErrorMessage);
   });
 
   test.describe('title length', () => {
-    test('reject creating article with title exceeding 128 signs @GAD-R04-02 @logged', async ({
+    test('reject creating article with title exceeding 128 signs @GAD-R04-02 @GAD-R07-03 @logged', async ({
       addArticleView,
     }) => {
       // Arrange
       const expectedErrorMessage = 'Article was not created';
+
       const articleData = prepareRandomArticle(129);
 
       // Act
       await addArticleView.createArticle(articleData);
 
       // Assert
-      await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage);
+      await expect(addArticleView.alertPopUp).toHaveText(expectedErrorMessage);
     });
 
-    test('create article with title with 128 signs @GAD-R04-02 @logged', async ({
+    test('create article with title with 128 signs @GAD-R04-02 @GAD-R07-03 @logged', async ({
       addArticleView,
     }) => {
       // Arrange
