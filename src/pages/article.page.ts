@@ -16,7 +16,7 @@ export class ArticlePage extends BasePage {
   articleBody = this.page.getByTestId('article-body');
   alertPopUp = this.page.getByTestId('alert-popup');
   deleteIcon = this.page.getByTestId('delete');
-  addCommentButton = this.page.locator('#add-new');
+  addCommentButton = this.page.locator('#add-new-comment');
 
   constructor(page: Page) {
     super(page);
