@@ -24,7 +24,7 @@ test.describe('Create, verify and delete comment', () => {
 
       // Assert
       await expect
-        .soft(articlePage.alertPopup)
+        .soft(articlePage.alertPopUp)
         .toHaveText(expectedCommentCreatedPopup);
     });
 
@@ -54,7 +54,7 @@ test.describe('Create, verify and delete comment', () => {
 
       // Assert
       await expect
-        .soft(commentPage.alertPopup)
+        .soft(commentPage.alertPopUp)
         .toHaveText(expectedCommentUpdatePopup);
       await expect(commentPage.commentBody).toHaveText(editCommentData.body);
     });
@@ -86,7 +86,7 @@ test.describe('Create, verify and delete comment', () => {
 
       // Assert
       await expect
-        .soft(articlePage.alertPopup)
+        .soft(articlePage.alertPopUp)
         .toHaveText(expectedCommentCreatedPopup);
     });
 
