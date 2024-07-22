@@ -52,7 +52,9 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @api', () => {
 
       // Assert
       expectedRequiredFields.forEach((key) => {
-        expect.soft(article, `Expected "${key}" should be found in object`).toHaveProperty(key);
+        expect
+          .soft(article, `Expected "${key}" should be found in object`)
+          .toHaveProperty(key);
       });
     });
   });
@@ -86,7 +88,9 @@ test('GET articles should return an object with required fields @predefined_data
   const article = responseJson[0];
   expectedRequiredFields.forEach(async (key) => {
     await test.step(`response object contains required field: ${key}`, async () => {
-      expect.soft(article, `Expected "${key}" should be found in object`).toHaveProperty(key);
+      expect
+        .soft(article, `Expected "${key}" should be found in object`)
+        .toHaveProperty(key);
     });
   });
 });
