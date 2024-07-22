@@ -36,11 +36,10 @@ test.describe('Verify comments API endpoint @GAD-R08-01 @api', () => {
       // Arrange
       const expectedRequiredFields = [
         'id',
+        'article_id',
         'user_id',
-        'title',
         'body',
         'date',
-        'image',
       ];
 
       const commentsUrl = '/api/comments';
@@ -52,7 +51,9 @@ test.describe('Verify comments API endpoint @GAD-R08-01 @api', () => {
 
       // Assert
       expectedRequiredFields.forEach((key) => {
-        expect.soft(comment, `Key ${key} found in object`).toHaveProperty(key);
+        expect
+          .soft(comment, `Expected "${key}" should be found in object`)
+          .toHaveProperty(key);
       });
     });
   });
@@ -76,16 +77,15 @@ test('GET comments should return an object with required fields @predefined_data
 
   const expectedRequiredFields = [
     'id',
+    'article_id',
     'user_id',
-    'title',
     'body',
     'date',
-    'image',
   ];
 
   const comment = responseJson[0];
   expectedRequiredFields.forEach(async (key) => {
-    await test.step(`response object contains required field: ${key}`, async () => {
+    await test.step(`response object contains required field: "${key}"`, async () => {
       expect.soft(comment).toHaveProperty(key);
     });
   });
